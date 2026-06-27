@@ -1,1 +1,15 @@
-{"name":"Shearin Farm Manager","short_name":"Farm Manager","start_url":"./index.html","display":"standalone","background_color":"#fffaf4","theme_color":"#5b3a29","icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml"}]}
+{
+  "name": "Shearin Farm Manager",
+  "short_name": "Farm Manager",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fffaf4",
+  "theme_color": "#5b3a29",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
