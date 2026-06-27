@@ -1,4 +1,4 @@
-const CACHE = "shearin-farm-manager-v12";
+const CACHE = "shearin-farm-manager-v13";
 const ASSETS = [
   "./",
   "./index.html",
