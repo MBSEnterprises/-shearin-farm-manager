@@ -37,4 +37,32 @@ $("exportEggs").onclick=()=>dl("shearin-farm-eggs.csv",csv(data.eggs,["date","eg
 function parseCSV(text){let lines=text.trim().split(/\r?\n/).filter(Boolean);if(lines.length<2)return[];let headers=lines[0].split(",").map(x=>x.trim().toLowerCase());return lines.slice(1).map(line=>{let parts=line.split(",");let obj={};headers.forEach((h,i)=>obj[h]=(parts[i]||"").trim());return obj})}
 $("previewEggImport").onclick=()=>{pendingImport=parseCSV($("eggImportText").value).map(r=>({entry_date:r.date,eggs_collected:num(r.eggs_collected),broken_discarded:num(r.broken_discarded),notes:r.notes||""})).filter(r=>r.entry_date);$("importMessage").textContent=`Previewing ${pendingImport.length} rows.`;$("runEggImport").classList.toggle("hidden",pendingImport.length===0);$("importPreviewTable").innerHTML="<tr><th>Date</th><th>Eggs</th><th>Broken</th><th>Notes</th></tr>"+pendingImport.map(r=>`<tr><td>${r.entry_date}</td><td>${r.eggs_collected}</td><td>${r.broken_discarded}</td><td>${r.notes}</td></tr>`).join("")};
 $("runEggImport").onclick=async()=>{if(!pendingImport.length)return;if(!confirm(`Import ${pendingImport.length} egg rows?`))return;let {error}=await client.from("egg_entries").insert(pendingImport);if(error){$("importMessage").textContent=error.message}else{$("importMessage").textContent="Import complete.";pendingImport=[];$("runEggImport").classList.add("hidden");await loadAll()}};
-if("serviceWorker"in navigator){navigator.serviceWorker.register("sw.js?v=7").catch(()=>{})}init();
+function registerAutoUpdateServiceWorker(){
+  if (!("serviceWorker" in navigator)) return;
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (refreshing) return;
+    refreshing = true;
+    window.location.reload();
+  });
+  window.addEventListener("load", async () => {
+    try {
+      const reg = await navigator.serviceWorker.register("sw.js?v=8", { updateViaCache: "none" });
+      await reg.update();
+      if (reg.waiting) reg.waiting.postMessage({ type: "SKIP_WAITING" });
+      reg.addEventListener("updatefound", () => {
+        const worker = reg.installing;
+        if (!worker) return;
+        worker.addEventListener("statechange", () => {
+          if (worker.state === "installed" && navigator.serviceWorker.controller) {
+            worker.postMessage({ type: "SKIP_WAITING" });
+          }
+        });
+      });
+    } catch (e) {
+      console.warn("Service worker update check failed", e);
+    }
+  });
+}
+registerAutoUpdateServiceWorker();
+init();
