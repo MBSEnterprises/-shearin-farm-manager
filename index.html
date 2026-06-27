@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Shearin Farm Manager</title>
 <meta name="theme-color" content="#5b3a29"/>
-<link rel="manifest" href="manifest.webmanifest?v=11"/>
-<link rel="stylesheet" href="style.css?v=11"/>
+<link rel="manifest" href="manifest.webmanifest?v=12"/>
+<link rel="stylesheet" href="style.css?v=12"/>
 </head>
 <body>
 <header><div><h1>Shearin Farm Manager</h1><p>Flock records, synced.</p></div><button id="syncBtn">Sync</button></header>
@@ -33,11 +33,11 @@
 <div class="cards">
 <article><span id="todayCardLabel">Today</span><b id="todayEggs">0</b><em>eggs</em></article>
 <article><span id="weekCardLabel">7 Days</span><b id="weekEggs">0</b><em>eggs</em></article>
-<article><span>Inventory</span><b id="inventoryEggs">0</b><em>eggs</em></article>
+<article><span id="eggsOnHandLabel">Eggs on hand</span><b id="eggsOnHand">0</b><em>eggs</em></article>
 <article><span id="monthSalesLabel">This Month</span><b id="monthSales">$0</b><em>sales</em></article>
 </div>
 <nav>
-<button data-tab="dashboard" class="active">Home</button><button data-tab="reports">Reports</button><button data-tab="eggs">Eggs</button><button data-tab="flock">Flock</button><button data-tab="sales">Sales</button><button data-tab="use">Use</button><button data-tab="expenses">Costs</button><button data-tab="import">Import</button><button data-tab="export">Export</button><button data-tab="settings">Settings</button>
+<button data-tab="dashboard" class="active">Home</button><button data-tab="reports">Reports</button><button data-tab="eggs">Eggs</button><button data-tab="onhand">On Hand</button><button data-tab="flock">Flock</button><button data-tab="sales">Sales</button><button data-tab="use">Use</button><button data-tab="expenses">Costs</button><button data-tab="import">Import</button><button data-tab="export">Export</button><button data-tab="settings">Settings</button>
 </nav>
 
 <section id="dashboard" class="panel tab active"><h2>Dashboard</h2><div class="summary"><div><b id="monthEggs">0</b><span id="monthEggsLabel">eggs this month</span></div><div><b id="activeLayers">0</b><span>active layers</span></div><div><b id="eggsPerHen">0</b><span id="eggsPerHenLabel">eggs / hen this week</span></div><div><b id="monthExpenses">$0</b><span id="monthExpensesLabel">expenses this month</span></div></div><div class="dashboardGrid"><div class="chartCard"><div class="chartHeader"><div><h3 id="dash14Title">Last 14 Days</h3><p class="muted">Tap a bar for details.</p></div><b id="dash14Total">0 eggs</b></div><div id="dashboardChart" class="barChart compactChart"></div><p id="dashboardChartDetail" class="chartDetail muted">Select a day to see details.</p></div><div class="insightCard"><h3>Quick Insights</h3><div class="insightList"><div><span id="dash7AvgLabel">7-day average</span><b id="dash7Avg">0</b></div><div><span id="dashMonthPaceLabel">Month pace</span><b id="dashMonthPace">0</b></div><div><span>Best day</span><b id="dashBestDay">0</b></div><div><span>Last entry</span><b id="dashLastEntry">None</b></div></div></div></div><h3>Recent Egg Entries</h3><div class="table"><table id="recentEggTable"></table></div></section>
@@ -46,6 +46,9 @@
 <section id="reports" class="panel tab"><h2>Egg Reports</h2><p class="muted">Mobile-friendly production charts based on your egg history.</p><div class="reportCards"><article><span id="reportWtdLabel">Week to date</span><b id="reportWtd">0</b><em>eggs</em></article><article><span id="reportLastWeekLabel">Last week</span><b id="reportLastWeek">0</b><em>eggs</em></article><article><span id="reportMtdLabel">Month to date</span><b id="reportMtd">0</b><em>eggs</em></article><article><span id="reportLastMonthLabel">Last month</span><b id="reportLastMonth">0</b><em>eggs</em></article></div><div class="reportControls"><button id="reportDailyBtn" class="active" type="button">Daily</button><button id="reportWeeklyBtn" type="button">Weekly</button><button id="reportMonthlyBtn" type="button">Monthly</button></div><div class="chartCard"><div class="chartHeader"><div><h3 id="reportChartTitle">Daily Egg Production</h3><p id="reportChartSub" class="muted">Last 30 days</p></div><b id="reportChartTotal">0 eggs</b></div><div id="eggChart" class="barChart"></div></div><div class="reportStats"><div><b id="reportBestWeek">0</b><span>best week</span></div><div><b id="reportBestMonth">0</b><span>best month</span></div><div><b id="reportAvgDay">0</b><span>avg / day</span></div><div><b id="reportLifetime">0</b><span>lifetime eggs</span></div></div></section>
 
 <section id="eggs" class="panel tab"><h2>Daily Egg Collection</h2><form id="eggForm" class="grid"><label>Date<input type="date" id="eggDate" required/></label><label>Collected<input type="number" id="eggCollected" min="0" required/></label><label>Broken / discarded<input type="number" id="eggBroken" min="0" value="0"/></label><label>Notes<input id="eggNotes"/></label><button>Save Egg Entry</button></form><div class="table"><table id="eggTable"></table></div></section>
+
+
+<section id="onhand" class="panel tab"><h2>Eggs on Hand</h2><p class="muted">Use this for your real physical egg count. Save a new count whenever you count the eggs in the house/fridge.</p><form id="onHandForm" class="grid"><label>Date<input type="date" id="onHandDate" required/></label><label>Eggs on hand<input type="number" id="onHandCount" min="0" required/></label><label>Notes<input id="onHandNotes" placeholder="Optional"/></label><button>Save Count</button></form><div class="table"><table id="onHandTable"></table></div></section>
 
 <section id="flock" class="panel tab"><h2>Flock</h2><form id="birdForm" class="grid"><label>Name / ID<input id="birdName" required/></label><label>Breed<input id="birdBreed"/></label><label>Status<select id="birdStatus"><option>Growing</option><option selected>Laying</option><option>Molting</option><option>Broody</option><option>Retired</option><option>Removed</option></select></label><label>Acquired / hatch date<input type="date" id="birdDate"/></label><label>Notes<input id="birdNotes"/></label><button>Add Bird</button></form><div class="table"><table id="birdTable"></table></div></section>
 
@@ -57,12 +60,12 @@
 
 <section id="import" class="panel tab"><h2>Historical Egg Import</h2><p class="muted">Paste CSV data with columns: date, eggs_collected, broken_discarded, notes. This is ready for the screenshot conversion later.</p><textarea id="eggImportText" rows="8" placeholder="date,eggs_collected,broken_discarded,notes&#10;2026-06-01,5,0,"></textarea><button id="previewEggImport">Preview Import</button><button id="runEggImport" class="hidden">Import Previewed Rows</button><p id="importMessage" class="muted"></p><div class="table"><table id="importPreviewTable"></table></div></section>
 
-<section id="export" class="panel tab"><h2>Export</h2><div class="actions"><button id="exportEggs">Export Eggs CSV</button><button id="exportFlock">Export Flock CSV</button><button id="exportSales">Export Sales CSV</button><button id="exportUse">Export Use CSV</button><button id="exportExpenses">Export Expenses CSV</button><button id="exportBackup">Export Full JSON Backup</button></div></section>
+<section id="export" class="panel tab"><h2>Export</h2><div class="actions"><button id="exportEggs">Export Eggs CSV</button><button id="exportFlock">Export Flock CSV</button><button id="exportSales">Export Sales CSV</button><button id="exportUse">Export Use CSV</button><button id="exportOnHand">Export Eggs on Hand CSV</button><button id="exportExpenses">Export Expenses CSV</button><button id="exportBackup">Export Full JSON Backup</button></div></section>
 
 <section id="settings" class="panel tab"><h2>Settings</h2><p id="signedInAs" class="muted"></p><button id="signOutBtn">Sign Out</button><button id="resetConfigBtn" class="danger">Reset Supabase Connection</button></section>
 </section></main>
 <footer id="status">Not connected.</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js?v=11"></script>
-<script src="script.js?v=11"></script>
+<script src="config.js?v=12"></script>
+<script src="script.js?v=12"></script>
 </body></html>
