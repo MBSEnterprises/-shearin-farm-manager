@@ -1,27 +1,10 @@
 # Changelog
 
-## v22 - Family-friendly invites
+## v23 - Bulletproof invite auth
+- Validates saved Supabase sessions against the server so deleted/unconfirmed users are forced to sign in again.
+- Invite links no longer create a new empty personal farm before joining the invited farm.
+- After accepting an invite, the app switches directly to the invited farm and loads its data.
+- Remembers the selected farm across reloads.
 
-- Added one-tap invite links using `?invite=CODE`.
-- Added large visible invite-code box.
-- Added Copy Invite Link and Share Invitation buttons for text/email/AirDrop.
-- App now saves invite links before sign-in and joins the farm automatically after login/signup.
-- Updated cache/service worker version to v22.
-
-
-## v21 - Farm sharing / workspace model
-
-- Added farm/workspace sharing model.
-- Added `farms`, `farm_members`, and `farm_invites` database migration.
-- App now scopes egg, flock, sales, use, expense, and eggs-on-hand data to the selected farm when the v21 SQL migration is installed.
-- Added Settings > Farm Sharing section.
-- Added invite-code flow for family members.
-- Added User ID to Diagnostics to make the Supabase bootstrap step easier.
-- Preserved legacy behavior if the v21 SQL has not been run yet.
-
-## v20 - Auth hardening
-
-- Added explicit Supabase email redirect handling.
-- Added resend verification email.
-- Added forgot password.
-- Added diagnostics for auth redirect troubleshooting.
+## v22 - Family friendly invites
+- Invite links, copy link, and share invitation.
