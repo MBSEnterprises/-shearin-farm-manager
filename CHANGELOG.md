@@ -1,16 +1,18 @@
 # Changelog
 
+## v21 - Farm sharing / workspace model
+
+- Added farm/workspace sharing model.
+- Added `farms`, `farm_members`, and `farm_invites` database migration.
+- App now scopes egg, flock, sales, use, expense, and eggs-on-hand data to the selected farm when the v21 SQL migration is installed.
+- Added Settings > Farm Sharing section.
+- Added invite-code flow for family members.
+- Added User ID to Diagnostics to make the Supabase bootstrap step easier.
+- Preserved legacy behavior if the v21 SQL has not been run yet.
+
 ## v20 - Auth hardening
 
-- Added explicit Supabase email verification redirect URL.
-- Added explicit Supabase password-reset redirect URL.
-- Added Resend Verification Email button.
-- Added Forgot Password button.
-- Added stronger client-side email/password validation.
-- Improved authentication error messages.
-- Added Settings > Diagnostics panel.
-- Updated service worker cache/version references from v19 to v20.
-
-## v19 - Dashboard restore
-
-- Baseline version restored after dashboard data display issues.
+- Added explicit Supabase email redirect handling.
+- Added resend verification email.
+- Added forgot password.
+- Added diagnostics for auth redirect troubleshooting.
