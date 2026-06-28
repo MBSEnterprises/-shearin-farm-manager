@@ -1,5 +1,14 @@
 # Changelog
 
+## v22 - Family-friendly invites
+
+- Added one-tap invite links using `?invite=CODE`.
+- Added large visible invite-code box.
+- Added Copy Invite Link and Share Invitation buttons for text/email/AirDrop.
+- App now saves invite links before sign-in and joins the farm automatically after login/signup.
+- Updated cache/service worker version to v22.
+
+
 ## v21 - Farm sharing / workspace model
 
 - Added farm/workspace sharing model.

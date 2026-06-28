@@ -1,11 +1,11 @@
-const CACHE = "shearin-farm-manager-v20";
+const CACHE = "shearin-farm-manager-v22";
 const ASSETS = [
   "./",
   "./index.html",
-  "./style.css?v=19",
-  "./script.js?v=19",
-  "./config.js?v=19",
-  "./manifest.webmanifest?v=19",
+  "./style.css?v=22",
+  "./script.js?v=22",
+  "./config.js?v=22",
+  "./manifest.webmanifest?v=22",
   "./icon.svg"
 ];
 
